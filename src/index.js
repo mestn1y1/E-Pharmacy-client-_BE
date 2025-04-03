@@ -1,38 +1,54 @@
-import express from 'express';
+// import express from 'express';
+// import pino from 'pino-http';
+// import cors from 'cors';
 
-const PORT = 3000;
+// const PORT = 3000;
 
-const app = express();
+// const app = express();
 
-// Middleware для логування часу запиту
-app.use((req, res, next) => {
-  console.log(`Time: ${new Date().toLocaleString()}`);
-  next();
-});
+// app.use(cors());
 
-// Вбудований у express middleware для обробки (парсингу) JSON-даних у запитах
-// наприклад, у запитах POST або PATCH
-app.use(express.json());
+// app.use(
+//   pino({
+//     transport: {
+//       target: 'pino-pretty',
+//     },
+//   }),
+// );
 
-// Маршрут для обробки GET-запитів на '/'
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Hello, World!',
-  });
-});
-app.use((req, res, next) => {
-  res.status(404).json({
-    message: 'Not found',
-  });
-});
+// app.use((req, res, next) => {
+//   console.log(`Time: ${new Date().toLocaleString()}`);
+//   next();
+// });
 
-// Middleware для обробких помилок (приймає 4 аргументи)
-app.use((err, req, res, next) => {
-  res.status(500).json({
-    message: 'Something went wrong',
-  });
-});
+// app.use(express.json());
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.get('/', (req, res) => {
+//   res.json({
+//     message: 'Hello, World!',
+//   });
+// });
+// app.use((req, res, next) => {
+//   res.status(404).json({
+//     message: 'Not found',
+//   });
+// });
+
+// app.use((err, req, res, next) => {
+//   res.status(500).json({
+//     message: 'Something went wrong',
+//   });
+// });
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+import { initMongoDB } from './db/initMongoDB.js';
+import { startServer } from './server.js';
+
+const bootstrap = async () => {
+  await initMongoDB();
+  startServer();
+};
+
+bootstrap();

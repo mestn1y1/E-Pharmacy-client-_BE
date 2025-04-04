@@ -3,6 +3,7 @@ import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { getEnvVar } from './utils/getEnvVar.js';
+import user from './routers/user.js';
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ export const startServer = () => {
       message: 'Hello world!',
     });
   });
+
+  app.use(user);
 
   app.use((req, res, next) => {
     res.status(404).json({

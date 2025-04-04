@@ -21,19 +21,15 @@ const userSchema = new Schema(
     phone: {
       type: String,
     },
-
-    token: {
-      type: String,
-      default: null,
-    },
-
-    verificationToken: {
-      type: String,
-      required: [true, 'Verify token is required'],
-    },
   },
   { versionKey: false, timestamps: true },
 );
+
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
 
 const UserCollection = model('user', userSchema);
 

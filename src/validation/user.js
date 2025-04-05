@@ -15,6 +15,7 @@ export const userRegisterSchema = Joi.object({
     'string.max': 'Password can be up to 64 characters',
     'string.empty': 'Password is required',
   }),
+  name: Joi.string().min(3).max(30).required(),
 });
 
 export const userLoginSchema = Joi.object({

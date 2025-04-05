@@ -5,17 +5,18 @@ const userSchema = new Schema(
   {
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: true,
     },
     email: {
       type: String,
       match: emailRegexp,
-      required: [true, 'Email is required'],
+      required: true,
       unique: true,
     },
 
     name: {
       type: String,
+      required: true,
     },
 
     phone: {

@@ -6,7 +6,7 @@ import { validateBody } from '../middlewares/validateBody.js';
 
 const router = Router();
 
-router.get('/user/user-info', ctrlWrapper(userController.registerController));
+router.get('/user/user-info', ctrlWrapper(userController.getInfoController));
 
 router.post(
   '/user/register',

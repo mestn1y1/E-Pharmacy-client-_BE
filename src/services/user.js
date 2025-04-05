@@ -28,6 +28,33 @@ export const register = async (payload) => {
   const session = await createSessionForUser(persistUser._id);
   return { user: persistUser, session: session };
 };
+// export const register = async (payload) => {
+//   console.log('Register service invoked with payload:', payload); // Логируем входные данные
+
+//   const { email, password } = payload;
+//   const user = await UserCollection.findOne({ email });
+
+//   console.log('User found:', user); // Логируем результат поиска
+
+//   if (user) {
+//     console.log('Email already in use');
+//     throw createHttpError(409, 'Email already in use');
+//   }
+
+//   const hashPassword = await bcrypt.hash(password, 10);
+//   console.log('Password hashed:', hashPassword);
+
+//   const persistUser = await UserCollection.create({
+//     ...payload,
+//     password: hashPassword,
+//   });
+//   console.log('User created:', persistUser);
+
+//   const session = await createSessionForUser(persistUser._id);
+//   console.log('Session created:', session);
+
+//   return { user: persistUser, session: session };
+// };
 
 export const login = async ({ email, password }) => {
   const user = await UserCollection.findOne({ email });

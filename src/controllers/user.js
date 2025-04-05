@@ -28,7 +28,6 @@ export const getInfoController = async (req, res) => {
 };
 
 export const registerController = async (req, res) => {
-  console.log(req.body); // Логируем данные запроса
   const resData = await authServices.register(req.body);
 
   const { _id, accessToken, refreshToken, refreshTokenValidUntil } =

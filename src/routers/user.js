@@ -27,6 +27,10 @@ router.post(
 
 router.post('/user/logout', ctrlWrapper(userController.logoutController));
 
-router.post('/user/refresh', ctrlWrapper(userController.refreshController));
+router.post(
+  '/user/refresh',
+  authenticate,
+  ctrlWrapper(userController.refreshController),
+);
 
 export default router;

@@ -22,7 +22,6 @@ export const getInfoController = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Error fetching user:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

@@ -3,10 +3,15 @@ import * as userController from '../controllers/user.js';
 import { userRegisterSchema, userLoginSchema } from '../validation/user.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.get('/user/user-info', ctrlWrapper(userController.getInfoController));
+router.get(
+  '/user/user-info',
+  authenticate,
+  ctrlWrapper(userController.getInfoController),
+);
 
 router.post(
   '/user/register',

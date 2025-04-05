@@ -4,7 +4,7 @@ const cartSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'users', // Предполагается, что у тебя есть коллекция User
+      ref: 'users',
       required: true,
     },
     productId: {
@@ -21,9 +21,7 @@ const cartSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
-// Удаление товаров, когда они покупаются (когда заказ оформлен)
 cartSchema.post('save', function (doc, next) {
-  // Здесь можно добавить логику для очистки корзины после оформления заказа, например
   next();
 });
 

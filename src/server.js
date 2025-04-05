@@ -5,6 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { getEnvVar } from './utils/getEnvVar.js';
 import user from './routers/user.js';
+import order from './routers/order.js';
+import stores from './routers/stores.js';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ export const startServer = () => {
   });
 
   app.use(user);
+  app.use(order);
+  app.use(stores);
 
   app.use((req, res, next) => {
     res.status(404).json({

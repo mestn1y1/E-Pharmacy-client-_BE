@@ -2,7 +2,6 @@ import { getNearestStores, getStoresList } from '../services/pharmacies.js';
 
 export const getStoresListController = async (req, res) => {
   try {
-    // Получаем список всех аптек
     const storesList = await getStoresList();
 
     res.status(200).json({

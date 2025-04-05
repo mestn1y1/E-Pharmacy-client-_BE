@@ -1,21 +1,30 @@
 import ProductCollection from '../db/models/pharmacy/products.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-// Получение всех продуктов с фильтрацией по имени и категории
-export const getAllProducts = async (query) => {
-  const { name, category } = query;
+export const getAllProducts = async ({ name, category, page, perPage }) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
 
   const filter = {};
   if (name) {
-    filter.name = { $regex: name, $options: 'i' }; // поиск без учета регистра
+    filter.name = { $regex: name, $options: 'i' };
   }
   if (category) {
     filter.category = category;
   }
 
-  return await ProductCollection.find(filter);
+  const productsQuery = ProductCollection.find(filter);
+  const totalItems = await ProductCollection.countDocuments(filter);
+  const products = await productsQuery.skip(skip).limit(limit).exec();
+
+  const paginationData = calculatePaginationData(totalItems, perPage, page);
+
+  return {
+    products,
+    ...paginationData,
+  };
 };
 
-// Получение одного продукта по ID
 export const getProductById = async (id) => {
   return await ProductCollection.findById(id);
 };

@@ -1,18 +1,22 @@
 import { getAllProducts, getProductById } from '../services/products.js';
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
-export const getProductsController = async (req, res) => {
+export const getProductsController = async (req, res, next) => {
   try {
-    const products = await getAllProducts(req.query);
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { name, category } = req.query;
+
+    const result = await getAllProducts({ name, category, page, perPage });
+
     res.status(200).json({
       status: 200,
       message: 'Products fetched successfully',
-      data: products,
+      data: result,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    next(error);
   }
 };
-
 export const getProductByIdController = async (req, res) => {
   try {
     const { id } = req.params;

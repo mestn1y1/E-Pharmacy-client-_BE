@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import * as userController from '../controllers/user.js';
-import { userRegisterSchema, userLoginSchema } from '../validation/user.js';
+import {
+  userRegisterSchema,
+  userLoginSchema,
+  refreshSchema,
+} from '../validation/user.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { authenticate } from '../middlewares/authenticate.js';
@@ -30,6 +34,7 @@ router.post('/user/logout', ctrlWrapper(userController.logoutController));
 router.post(
   '/user/refresh',
   authenticate,
+  validateBody(refreshSchema),
   ctrlWrapper(userController.refreshController),
 );
 

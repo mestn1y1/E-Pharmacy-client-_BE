@@ -1,4 +1,8 @@
-import { getNearestStores, getStoresList } from '../services/pharmacies.js';
+import {
+  getNearestStores,
+  getStoresList,
+  getStoreById,
+} from '../services/pharmacies.js';
 
 export const getStoresListController = async (req, res) => {
   try {
@@ -11,6 +15,30 @@ export const getStoresListController = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: error.message || 'Server error' });
+  }
+};
+
+export const getStoreByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const pharmacy = await getStoreById(id);
+
+    if (!pharmacy) {
+      return res.status(404).json({
+        status: 404,
+        message: 'Pharmacy not found',
+      });
+    }
+
+    res.status(200).json({
+      status: 200,
+      message: 'Pharmacy found',
+      data: pharmacy,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || 'Server error',
+    });
   }
 };
 

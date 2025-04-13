@@ -6,6 +6,11 @@ export const getStoresList = async () => {
   return pharmacies;
 };
 
+export const getStoreById = async (id) => {
+  const pharmacy = await PharmacyCollection.findById(id);
+  return pharmacy;
+};
+
 export const getNearestStores = async () => {
   const pharmacies = await NearestPharmacyCollection.find();
   return pharmacies;

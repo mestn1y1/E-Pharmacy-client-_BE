@@ -6,16 +6,20 @@ export const getAllProducts = async ({ name, category, page, perPage }) => {
   const skip = (page - 1) * perPage;
 
   const filter = {};
-  if (name) {
-    filter.name = { $regex: name, $options: 'i' };
-  }
-  if (category) {
-    filter.category = category;
+
+  if (name?.trim()) {
+    filter.name = { $regex: name.trim(), $options: 'i' };
   }
 
-  const productsQuery = ProductCollection.find(filter);
+  if (category?.trim()) {
+    filter.category = category.trim();
+  }
+
   const totalItems = await ProductCollection.countDocuments(filter);
-  const products = await productsQuery.skip(skip).limit(limit).exec();
+  const products = await ProductCollection.find(filter)
+    .skip(skip)
+    .limit(limit)
+    .exec();
 
   const paginationData = calculatePaginationData(totalItems, perPage, page);
 

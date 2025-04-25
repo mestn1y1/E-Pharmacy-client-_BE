@@ -52,29 +52,6 @@ export const updateCartController = async (req, res) => {
   }
 };
 
-// export const addToCartController = async (req, res) => {
-//   try {
-//     const { productId, quantity } = req.body;
-//     const userId = req.user._id;
-
-//     if (!productId || quantity === undefined) {
-//       return res
-//         .status(400)
-//         .json({ message: 'Product ID and quantity are required' });
-//     }
-
-//     const cartItem = await addToCart(userId, productId, quantity);
-
-//     res.status(201).json({
-//       status: 201,
-//       message: 'Product added to cart successfully',
-//       data: cartItem,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
 export const addToCartController = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
@@ -124,28 +101,6 @@ export const deleteCartItemController = async (req, res) => {
   }
 };
 
-// export const checkoutController = async (req, res) => {
-//   try {
-//     const userId = req.user._id;
-//     const { paymentMethod, shippingAddress } = req.body;
-
-//     if (!paymentMethod || !shippingAddress) {
-//       return res
-//         .status(400)
-//         .json({ message: 'Payment method and shipping address are required' });
-//     }
-
-//     const order = await checkout(userId, paymentMethod, shippingAddress);
-
-//     res.status(200).json({
-//       status: 200,
-//       message: 'Order placed successfully',
-//       data: order,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
 export const checkoutController = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -181,6 +136,7 @@ export const checkoutController = async (req, res) => {
         phone,
         address: shippingAddress,
       },
+      shippingAddress,
       paymentMethod,
       totalAmount,
       items: cartItems,

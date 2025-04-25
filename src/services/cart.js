@@ -46,11 +46,19 @@ export const checkout = async (userId, paymentMethod, shippingAddress) => {
   return order;
 };
 
+// export const addToCart = async (userId, productId, quantity) => {
+//   const cartItem = await CartCollection.create({
+//     userId,
+//     productId,
+//     quantity,
+//   });
+//   return cartItem;
+// };
 export const addToCart = async (userId, productId, quantity) => {
   const cartItem = await CartCollection.create({
     userId,
     productId,
     quantity,
   });
-  return cartItem;
+  return await CartCollection.findById(cartItem._id).populate('productId');
 };

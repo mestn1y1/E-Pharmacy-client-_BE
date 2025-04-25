@@ -1,5 +1,6 @@
 import CartCollection from '../db/models/pharmacy/cart.js';
 import OrderCollection from '../db/models/pharmacy/orders.js';
+import ProductCollection from '../db/models/pharmacy/products.js';
 
 export const getCartItems = async (userId) => {
   return await CartCollection.find({ userId });
@@ -46,11 +47,30 @@ export const checkout = async (userId, paymentMethod, shippingAddress) => {
   return order;
 };
 
+// export const addToCart = async (userId, productId, quantity) => {
+//   const cartItem = await CartCollection.create({
+//     userId,
+//     productId,
+//     quantity,
+//   });
+//   return cartItem;
+// };
 export const addToCart = async (userId, productId, quantity) => {
-  const cartItem = await CartCollection.create({
-    userId,
-    productId,
-    quantity,
-  });
-  return cartItem;
+  try {
+    const product = await ProductCollection.findById(productId);
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    const cartItem = await CartCollection.create({
+      userId,
+      productId,
+      quantity,
+      price: product.price,
+    });
+    return cartItem;
+  } catch (error) {
+    console.error('Error adding to cart:', error);
+    throw error;
+  }
 };

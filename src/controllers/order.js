@@ -52,6 +52,28 @@ export const updateCartController = async (req, res) => {
   }
 };
 
+// export const addToCartController = async (req, res) => {
+//   try {
+//     const { productId, quantity } = req.body;
+//     const userId = req.user._id;
+
+//     if (!productId || quantity === undefined) {
+//       return res
+//         .status(400)
+//         .json({ message: 'Product ID and quantity are required' });
+//     }
+
+//     const cartItem = await addToCart(userId, productId, quantity);
+
+//     res.status(201).json({
+//       status: 201,
+//       message: 'Product added to cart successfully',
+//       data: cartItem,
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 export const addToCartController = async (req, res) => {
   try {
     const { productId, quantity } = req.body;
@@ -71,10 +93,14 @@ export const addToCartController = async (req, res) => {
       data: cartItem,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    let message = 'Server error';
+    if (error.message === 'Product not found') {
+      message = 'Product not found';
+      return res.status(404).json({ message });
+    }
+    res.status(500).json({ message });
   }
 };
-
 export const checkoutController = async (req, res) => {
   try {
     const userId = req.user._id;

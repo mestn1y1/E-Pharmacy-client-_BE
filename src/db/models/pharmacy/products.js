@@ -26,6 +26,10 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
+    discount: {
+      type: Number,
+      enum: [35, 70],
+    },
   },
   { versionKey: false, timestamps: true },
 );

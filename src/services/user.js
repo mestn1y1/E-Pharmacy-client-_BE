@@ -29,6 +29,7 @@ export const register = async (payload) => {
   return { user: persistUser, session: session };
 };
 
+
 export const login = async ({ email, password }) => {
   const user = await UserCollection.findOne({ email });
 

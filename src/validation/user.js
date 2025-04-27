@@ -16,6 +16,14 @@ export const userRegisterSchema = Joi.object({
     'string.empty': 'Password is required',
   }),
   name: Joi.string().min(3).max(30).required(),
+  phone: Joi.string()
+    .pattern(/^\+?[1-9]\d{1,14}$/)
+    .required()
+    .messages({
+      'string.pattern.base':
+        'Phone number is invalid. It should be in international format.',
+      'string.empty': 'Phone number is required',
+    }),
 });
 
 export const userLoginSchema = Joi.object({

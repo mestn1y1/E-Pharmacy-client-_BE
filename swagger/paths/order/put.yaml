@@ -1,0 +1,66 @@
+summary: Update product quantity in cart
+operationId: updateCartItem
+tags:
+  - Cart
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - productId
+          - quantity
+        properties:
+          productId:
+            type: string
+            example: '661eeaa23f72b5d1c0a4a123'
+          quantity:
+            type: integer
+            example: 3
+responses:
+  '200':
+    description: Cart item updated successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Cart item updated successfully
+            data:
+              type: object
+  '400':
+    description: Product ID and quantity are required
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Product ID and quantity are required
+  '404':
+    description: Cart item not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: Cart item not found
+  '500':
+    $ref: ../../components/responses/500.yaml

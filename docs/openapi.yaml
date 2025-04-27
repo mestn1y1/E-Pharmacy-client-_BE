@@ -1,0 +1,76 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: E-Pharmacy
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of E-Pharmacy App
+tags:
+  - name: User
+    description: User operations.
+  - name: Products
+    description: Operations about products.
+  - name: Pharmacies
+    description: Operations about pharmacies
+  - name: Reviews
+    description: Operations about reviews
+  - name: Cart
+    description: Operations about cart
+servers:
+  - url: http://localhost:3000
+  - url: https://e-pharmacy-client-be.onrender.com
+paths:
+  /user/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
+  /user/login:
+    post:
+      $ref: ../swagger/paths/auth/login.yaml
+  /user/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
+  /user/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout.yaml
+  /user/user-info:
+    get:
+      $ref: ../swagger/paths/auth/userInfo.yaml
+  /products:
+    get:
+      $ref: ../swagger/paths/products/getProducts.yaml
+  /products/{id}:
+    get:
+      $ref: ../swagger/paths/products/{id}/getProductById.yaml
+  /stores:
+    get:
+      $ref: ../swagger/paths/pharmacies/pharmacies.yaml
+  /stores/{id}:
+    get:
+      $ref: ../swagger/paths/pharmacies/{id}/pharmaciesById.yaml
+  /stores/nearest:
+    get:
+      $ref: ../swagger/paths/pharmacies/nearest-pharmacies.yaml
+  /customer-reviews:
+    get:
+      $ref: ../swagger/paths/reviews/reviews.yaml
+  /cart:
+    get:
+      $ref: ../swagger/paths/order/get.yaml
+  /cart/add:
+    post:
+      $ref: ../swagger/paths/order/post.yaml
+  /cart/update:
+    put:
+      $ref: ../swagger/paths/order/put.yaml
+  /cart/{productId}:
+    delete:
+      $ref: ../swagger/paths/order/delete.yaml
+  /cart/checkout:
+    post:
+      $ref: ../swagger/paths/order/checkout.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

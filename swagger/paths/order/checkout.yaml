@@ -1,0 +1,65 @@
+summary: Checkout the cart
+operationId: checkout
+tags:
+  - Cart
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            example: '13214@gmail.com'
+          name:
+            type: string
+            example: 'qwwqqw'
+          paymentMethod:
+            type: string
+            enum:
+              - 'Cash On Delivery'
+              - 'Bank'
+            example: 'Cash On Delivery'
+
+          phone:
+            type: string
+            example: '+380930926325'
+          shippingAddress:
+            type: string
+            example: '124545'
+          totalAmount:
+            type: number
+            format: float
+            example: 164.2
+responses:
+  '200':
+    description: Checkout successful
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Checkout successful
+  '400':
+    description: Checkout error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: Checkout failed
+  '500':
+    $ref: ../../components/responses/500.yaml

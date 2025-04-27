@@ -1,0 +1,52 @@
+summary: Get list of nearest pharmacies
+operationId: getNearestStores
+tags:
+    - Pharmacies
+security:
+    - bearerAuth: []
+responses:
+        '200':
+          description: Successfully retrieved nearest pharmacies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Successfully retrieved pharmacies list
+                  data:
+                    type: array
+                    items:
+                      type: object
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Invalid request parameters
+        '404':
+          description: Pharmacies not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Pharmacies not found
+        '500':
+          $ref: ../../components/responses/500.yaml

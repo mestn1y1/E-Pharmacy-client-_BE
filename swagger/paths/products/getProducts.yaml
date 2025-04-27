@@ -1,0 +1,97 @@
+summary: Get all products
+operationId: getAllProducts
+tags:
+  - Products
+parameters:
+  - name: page
+    in: query
+    description: Page number for pagination
+    required: false
+    schema:
+      type: integer
+      example: 1
+  - name: perPage
+    in: query
+    description: Number of products per page
+    required: false
+    schema:
+      type: integer
+      example: 10
+  - name: name
+    in: query
+    description: Filter products by name
+    required: false
+    schema:
+      type: string
+      example: 'Aspirin'
+  - name: category
+    in: query
+    description: Filter products by category (only 'Medicine', 'Heart', 'Head', 'Leg')
+    required: false
+    schema:
+      type: string
+      enum:
+        - Medicine
+        - Heart
+        - Head
+        - Leg
+      example: 'Heart'
+  - name: discount
+    in: query
+    description: Filter products by discount (only 35 or 70)
+    required: false
+    schema:
+      type: integer
+      enum:
+        - 35
+        - 70
+      example: 35
+
+security:
+  - bearerAuth: []
+
+responses:
+  '200':
+    description: Products fetched successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Products fetched successfully'
+            data:
+              type: object
+              description: Result with products and pagination info
+  '400':
+    description: Bad request - invalid query parameters
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 400
+            message:
+              type: string
+              example: 'Invalid request parameters'
+  '404':
+    description: Not found - no products matched the criteria
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Products not found'
+  '500':
+    $ref: ../../components/responses/500.yaml

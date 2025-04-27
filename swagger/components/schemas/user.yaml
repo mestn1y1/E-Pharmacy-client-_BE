@@ -1,0 +1,30 @@
+ type: object
+  properties:
+    password:
+      type: string
+      description: "User's password"
+      required: true
+    email:
+      type: string
+      description: "User's email"
+      pattern: "^(?!.*?@example\\.com$).*"
+      required: true
+      unique: true
+    name:
+      type: string
+      description: "User's name"
+      required: true
+    phone:
+      type: string
+      description: "User's phone number"
+      required: false
+  required:
+    - password
+    - email
+    - name
+  additionalProperties: false
+  example:
+    password: "examplePassword123"
+    email: "user@example.com"
+    name: "John Doe"
+    phone: "+1234567890"

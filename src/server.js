@@ -11,6 +11,7 @@ import products from './routers/products.js';
 import reviews from './routers/reviews.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ export const startServer = () => {
       },
     }),
   );
-
+  app.use('/api-docs', swaggerDocs());
   app.use(user);
   app.use(order);
   app.use(stores);
